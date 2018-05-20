@@ -1,0 +1,16 @@
+CREATE TRIGGER testTrigger
+BEFORE INSERT ON EVENTS.STATUS FOR EACH ROW 
+CALL "org.conyevents.triggers.testTrigger"
+
+
+insert into events.status (identifier,node,severity) values
+('test1','server1',5);
+select * from events.status;
+
+
+
+
+set mode MySQL;
+insert into events.status (identifier,node,severity) values
+('test1','server1',5) ON DUPLICATE KEY UPDATE TALLY = TALLY+1;
+select * from events.status;
